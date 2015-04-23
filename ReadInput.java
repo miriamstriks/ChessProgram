@@ -20,7 +20,6 @@ public class ReadInput {
                break;
             count++; 
          }
-         System.out.println("number of boards: "+count);
          boards = new Board[count];
          
          //count types of pieces
@@ -30,7 +29,6 @@ public class ReadInput {
                break;
             count++;
          }
-         System.out.println("number of pieces: "+count);
          pieceType = new Piece[count];
          
          //count numbers of pieces
@@ -60,7 +58,6 @@ public class ReadInput {
          while(!(line=inFile.nextLine()).isEmpty()){
             index++;
             String [] boardInfo = line.split(" ");
-            System.out.println(line);
             numVertices = Integer.parseInt(boardInfo[1]);
             xvertices = new int[numVertices];
             yvertices = new int[numVertices];
@@ -80,20 +77,19 @@ public class ReadInput {
          while(!(line=inFile.nextLine()).isEmpty()){
             index++;         
             pieceInfo = line.split(" ");
-            System.out.println("piece:" + pieceInfo[0]);
             numPoints = Integer.parseInt(pieceInfo[1]);
             moveX = new int[numPoints];
             moveY = new int[numPoints];
                 
-            for(int i=0; i<numVertices; i++){
+            for(int i=0; i<numPoints; i++){
                moveX[i]=Integer.parseInt(pieceInfo[i+2]);
-               moveY[i]=Integer.parseInt(pieceInfo[i+2+numVertices]);
+               moveY[i]=Integer.parseInt(pieceInfo[i+2+numPoints]);
             }
             
             pieceType[index]= new Piece(pieceInfo[0],moveX,moveY);
          }
          
-         //store numbers of pieces
+         //store numbers of pieces to place
          index=-1;
          while(!(line=inFile.nextLine()).isEmpty()){
             index++;
@@ -109,6 +105,15 @@ public class ReadInput {
          }
 
          inFile.close();
+         
+         for(int i=0; i<pieceType.length; i++){
+            System.out.print(pieceType[i].getName() + " ");
+            for(int j=0; j<pieceType[i].getXs().length; j++)
+               System.out.print(pieceType[i].getXs()[j] + " ");
+            for(int j=0; j<pieceType[i].getYs().length; j++)
+               System.out.print(pieceType[i].getYs()[j] + " ");
+            System.out.println();
+         }
       
       }catch(FileNotFoundException e){
          JOptionPane.showMessageDialog(null, "Input file not found.");
